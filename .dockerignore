@@ -1,0 +1,24 @@
+# Ignore Git metadata
+.git
+.gitignore
+
+# Build artifacts
+dist/
+release-bin/
+*.tar.gz
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+
+# Local data directories
+pb_data/
+**/pb_data/
+
+test/
+
+# Cache
+**/.DS_Store
+**/Thumbs.db
+
