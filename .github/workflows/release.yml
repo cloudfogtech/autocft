@@ -32,9 +32,6 @@ jobs:
           - goos: linux
             goarch: arm
             goarm: 7
-          - goos: linux
-            goarch: arm
-            goarm: 8
           - goos: darwin
             goarch: amd64
           - goos: darwin
@@ -74,7 +71,7 @@ jobs:
           mkdir -p dist
           ext=""
           if [ "${{ matrix.goos }}" = "windows" ]; then
-            ext=".exe"; 
+            ext=".exe"
           fi
           outName="autocft_${tag}_${{ matrix.goos }}-${{ matrix.goarch }}"
           if [ "${{ matrix.goarch }}" = "arm" ]; then
@@ -106,19 +103,16 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: dist
-
       - name: Generate SHA256SUMS.txt
         run: |
           cd dist
           find . -name "*.tar.gz" -exec sha256sum {} \; > SHA256SUMS.txt
-
       - name: Upload merged SHA256SUMS
         uses: actions/upload-artifact@v4
         with:
           name: dist-sha256
           path: dist/SHA256SUMS.txt
           retention-days: 5
-
       - name: Upload assets to existing release
         uses: softprops/action-gh-release@v2
         with:
@@ -126,26 +120,12 @@ jobs:
             dist/**/*.tar.gz
             dist/SHA256SUMS.txt
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   docker-image-build:
-    name: Docker Image Build
+    name: Multi-Arch Docker Image Build & Push
     runs-on: ubuntu-latest
     needs: merge-artifacts
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - platform: linux/amd64
-            arch_tag: amd64
-          - platform: linux/386
-            arch_tag: 386
-          - platform: linux/arm64
-            arch_tag: arm64
-          - platform: linux/arm64/v8
-            arch_tag: armv8
-          - platform: linux/arm/v7
-            arch_tag: armv7
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -167,7 +147,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.GH_PAT }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Prepare tags
         id: prep
@@ -178,79 +158,29 @@ jobs:
             echo "tags=latest,${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
           fi
 
-      - name: Build & Push arch image (source build)
-        env:
-          TAGS: ${{ steps.prep.outputs.tags }}
-        run: |
-            set -eux
-            IFS=',' read -ra arr <<< "$TAGS"
-            for t in "${arr[@]}"; do
-              docker buildx build \
-                --platform "${{ matrix.platform }}" \
-                --file Dockerfile \
-                --build-arg GO_VERSION=1.25 \
-                -t "${DOCKERHUB_REPO}:${t}-${{ matrix.arch_tag }}" \
-                -t "${GHCR_REPO}:${t}-${{ matrix.arch_tag }}" \
-                --push .
-            done
-
-  docker-image-manifest:
-    name: Docker Image Manifest
-    runs-on: ubuntu-latest
-    needs: docker-image-build
-    steps:
-      - name: Set up Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login DockerHub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Login GHCR
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GH_PAT }}
-
-      - name: Prepare tags
-        id: prep
-        run: |
-          if [ "${{ github.event.release.prerelease }}" = "true" ]; then
-            echo "tags=beta,${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
-          else
-            echo "tags=latest,${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Create & Push manifests
+      - name: Build & Push multi-platform images
         env:
           TAGS: ${{ steps.prep.outputs.tags }}
         run: |
           set -eux
-          archs="amd64 386 arm64 armv8 armv7"
+          PLATFORMS="linux/amd64,linux/386,linux/arm/v7,linux/arm64"
           IFS=',' read -ra arr <<< "$TAGS"
+          TAG_ARGS=""
           for t in "${arr[@]}"; do
-            # DockerHub
-            refs=""
-            for a in $archs; do
-              refs+=" ${DOCKERHUB_REPO}:${t}-${a}"
-            done
-            docker buildx imagetools create -t ${DOCKERHUB_REPO}:$t $refs
-            # GHCR
-            refs=""
-            for a in $archs; do
-              refs+=" ${GHCR_REPO}:${t}-${a}"
-            done
-            docker buildx imagetools create -t ${GHCR_REPO}:$t $refs
+            TAG_ARGS+=" -t ${DOCKERHUB_REPO}:${t} -t ${GHCR_REPO}:${t}"
           done
+          docker buildx build \
+            --platform "${PLATFORMS}" \
+            --build-arg GO_VERSION=1.25 \
+            ${TAG_ARGS} \
+            --push \
+            .
 
-      - name: Inspect (sample)
+      - name: Inspect manifests
+        env:
+          TAGS: ${{ steps.prep.outputs.tags }}
         run: |
           set -eux
-          TAGS='${{ steps.prep.outputs.tags }}'
           for t in ${TAGS//,/ }; do
-            echo "DockerHub manifest for $t:"
             docker buildx imagetools inspect ${DOCKERHUB_REPO}:$t || true
           done
