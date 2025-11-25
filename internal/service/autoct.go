@@ -9,11 +9,13 @@ import (
 	"time"
 
 	"github.com/cloudflare/cloudflare-go/v6/zero_trust"
+	"github.com/pocketbase/pocketbase"
 )
 
 const HistoryFile = "latest.json"
 
 type AutoCFTService struct {
+	app              *pocketbase.PocketBase
 	logger           *slog.Logger
 	cloudflareClient *connector.CloudflareClient
 	dockerClient     *connector.DockerClient
@@ -23,8 +25,10 @@ type AutoCFTService struct {
 	running int32
 }
 
-func NewAutoCFTService(logger *slog.Logger, systemConfig *model.SystemConfig, defaultConfig *model.IngressConfig) *AutoCFTService {
+func NewAutoCFTService(app *pocketbase.PocketBase, systemConfig *model.SystemConfig, defaultConfig *model.IngressConfig) *AutoCFTService {
+	logger := app.Logger().WithGroup("autocft")
 	return &AutoCFTService{
+		app:              app,
 		logger:           logger,
 		cloudflareClient: connector.NewCloudflareClient(logger, systemConfig.CFAPIToken, systemConfig.CFAccountID, systemConfig.CFTunnelID),
 		dockerClient:     connector.NewDockerClient(),

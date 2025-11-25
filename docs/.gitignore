@@ -26,11 +26,9 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-# Pocketbase data dir
-pb_data/
-
-# Test data dir
-test/
-
 # VSCode
 .vscode
+
+node_modules/
+
+.vitepress/cache

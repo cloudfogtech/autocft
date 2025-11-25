@@ -1,0 +1,16 @@
+# 更新日志
+
+## 0.0.1 版本
+- 初始原型
+- Docker 标签发现
+- Cloudflare Tunnel ingress 同步（合并 + diff）
+- 自动追加 404 fallback
+- 历史文件追踪
+- 秒级 Cron 调度
+
+## 0.0.2 版本
+- 无业务逻辑修改
+- 优化CI/CD流程
+
+## 0.0.3 版本
+

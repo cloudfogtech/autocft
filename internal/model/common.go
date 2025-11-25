@@ -1,11 +1,13 @@
 package model
 
 type SystemConfig struct {
-	CFAPIToken  string `json:"cfApiToken" env:"CF_API_TOKEN"`
-	CFAccountID string `json:"cfAccountId" env:"CF_ACCOUNT_ID"`
-	CFTunnelID  string `json:"cfTunnelId" env:"CF_TUNNEL_ID"`
-	Basedir     string `json:"basedir" env:"BASEDIR"`
-	Cron        string `json:"cron" env:"CRON"`
+	CFAPIToken    string `json:"cfApiToken" env:"CF_API_TOKEN"`
+	CFAccountID   string `json:"cfAccountId" env:"CF_ACCOUNT_ID"`
+	CFTunnelID    string `json:"cfTunnelId" env:"CF_TUNNEL_ID"`
+	Basedir       string `json:"basedir" env:"BASEDIR"`
+	Cron          string `json:"cron" env:"CRON"`
+	AdminEmail    string `json:"adminEmail" env:"ADMIN_EMAIL"`
+	AdminPassword string `json:"adminPassword" env:"ADMIN_PASSWORD"`
 }
 
 // IngressConfig define as zero_trust.TunnelCloudflaredConfigurationUpdateParamsConfigIngress

@@ -1,0 +1,69 @@
+name: Deploy Docs to Cloudflare Pages
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'docs/**'
+      - '.github/workflows/docs-pages-deploy.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: pages-docs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy-docs:
+    name: Build & Deploy VitePress Docs
+    runs-on: ubuntu-latest
+    environment: pages
+    permissions:
+      contents: read
+    env:
+      PAGES_PROJECT_NAME: ${{ secrets.CLOUDFLARE_PAGES_PROJECT_NAME }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Enable Corepack (pnpm)
+        run: corepack enable
+
+      - name: Install docs dependencies
+        working-directory: docs
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify wrangler version
+        working-directory: docs
+        run: pnpm exec wrangler --version
+
+      - name: Build docs (VitePress)
+        working-directory: docs
+        run: pnpm run docs:build
+
+      - name: Deploy to Cloudflare Pages
+        run: npx wrangler pages deploy docs/.vitepress/dist --project-name "$PAGES_PROJECT_NAME" --branch "${GITHUB_REF_NAME}" --commit-dirty=true
+        env:
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "Deployment attempted for branch: ${GITHUB_REF_NAME}" >> $GITHUB_STEP_SUMMARY
+          echo "Project: $PAGES_PROJECT_NAME" >> $GITHUB_STEP_SUMMARY
+          echo "Docs source: docs/" >> $GITHUB_STEP_SUMMARY
+
+# Required Secrets:
+#   CLOUDFLARE_API_TOKEN          - API Token with Pages Write (and optionally Account Read)
+#   CLOUDFLARE_ACCOUNT_ID         - Your Cloudflare Account ID
+#   CLOUDFLARE_PAGES_PROJECT_NAME - Cloudflare Pages project name (slug)
+# Optional: You can restrict deployment only to main by removing --branch usage or adding conditions.
+

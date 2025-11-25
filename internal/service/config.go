@@ -10,6 +10,8 @@ import (
 
 const DefaultBasedir = "/app/autocft"
 const DefaultCron = "*/10 * * * * *"
+const DefaultAdminEmail = "admin@example.com"
+const DefaultAdminPassword = "autocft@admin#123"
 
 func LoadConfigFromEnv() (*model.SystemConfig, *model.IngressConfig) {
 	viper.SetEnvPrefix("AUTOCFT")
@@ -26,6 +28,12 @@ func LoadConfigFromEnv() (*model.SystemConfig, *model.IngressConfig) {
 	}
 	if systemConfig.Cron == "" {
 		systemConfig.Cron = DefaultCron
+	}
+	if systemConfig.AdminEmail == "" {
+		systemConfig.AdminEmail = DefaultAdminEmail
+	}
+	if systemConfig.AdminPassword == "" {
+		systemConfig.AdminPassword = DefaultAdminPassword
 	}
 	return systemConfig, loadIngressConfigFromEnv(envValueFunc)
 }
