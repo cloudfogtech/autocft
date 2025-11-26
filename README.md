@@ -8,7 +8,7 @@
 
 ---
 
-详细文档请访问：https://doc.cloudfogtech.ltd/autocft
+详细文档请访问：https://autocft.cloudfogtech.ltd
 
 ## ✨ 特性
 - **自动化**：无需手动在Cloudflare Zero Trust中配置隧道，节省时间和精力
@@ -26,7 +26,7 @@
 | CF_ACCOUNT_ID | Dashboard URL `/accounts/<id>/` 或 API Tokens 页 |
 | CF_TUNNEL_ID | `cloudflared tunnel list` 或 Zero Trust Tunnel 详情页 UUID |
 
-详情见 [Cloudflare 配置指南](https://doc.cloudfogtech.ltd/autocft/zh/cloudflare)。
+详情见 [Cloudflare 配置指南](https://autocft.cloudfogtech.ltd/zh/cloudflare)。
 
 ### 2. docker-compose 示例
 ```yaml
@@ -56,7 +56,7 @@ volumes:
 docker compose up -d autocft
 ```
 
-详情见 [环境变量](https://doc.cloudfogtech.ltd/autocft/zh/environment)。
+详情见 [环境变量](https://autocft.cloudfogtech.ltd/zh/environment)。
 
 ### 3. 给业务容器打标签
 ```yaml
@@ -74,7 +74,7 @@ docker compose up -d autocft
 ```
 等待一个调度周期（默认 10 秒）后访问 `https://app.example.com` 即可通过 Tunnel 路由到内部服务。
 
-详情见 [容器标签](https://doc.cloudfogtech.ltd/autocft/zh/labels)。
+详情见 [容器标签](https://autocft.cloudfogtech.ltd/zh/labels)。
 
 ## 🧪 构建与运行
 本地构建二进制：

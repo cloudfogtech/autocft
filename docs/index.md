@@ -11,7 +11,7 @@ head:
 <script setup>
 if (typeof window !== 'undefined') {
   const lang = (navigator.language || navigator.userLanguage || '').toLowerCase()
-  const target = lang.startsWith('zh') ? '/autocft/zh/' : '/autocft/en/'
+  const target = lang.startsWith('zh') ? '/zh/' : '/en/'
   window.location.replace(target)
 }
 </script>

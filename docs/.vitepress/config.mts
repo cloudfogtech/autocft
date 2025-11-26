@@ -3,7 +3,7 @@ import { configureDiagramsPlugin } from "vitepress-plugin-diagrams";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-    base: '/autocft/',
+    base: '/',
     title: "Auto Cloudflare Tunnel",
     description: "A tool to auto deploy applications for Cloudflare Tunnel in Docker with Docker Compose",
     themeConfig: {
@@ -102,7 +102,7 @@ export default defineConfig({
         config: (md) => {
             configureDiagramsPlugin(md, {
                 diagramsDir: "assets/diagrams", // 可选：自定义 SVG 文件目录
-                publicPath: "/autocft/assets/diagrams", // 可选：自定义公共路径
+                publicPath: "/assets/diagrams", // 可选：自定义公共路径
                 krokiServerUrl: "https://kroki.io", // 可选：自定义 Kroki 服务器地址
                 excludedDiagramTypes: [], // 可选：排除特定图表类型
             });

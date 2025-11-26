@@ -31,10 +31,9 @@ Auto Cloudflare Tunnel (AutoCFT) automatically synchronizes Docker container lab
 
 ## docker-compose Example
 ```yaml
-version: '3.8'
 services:
   autocft:
-    image: yourrepo/autocft:latest
+    image: cloudfogtech/autocft:latest
     container_name: autocft
     environment:
       - AUTOCFT_CF_API_TOKEN=${AUTOCFT_CF_API_TOKEN}
