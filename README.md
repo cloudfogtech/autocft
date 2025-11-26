@@ -8,7 +8,7 @@
 
 ---
 
-详细文档请访问：https://autocft.cloudfogtech.ltd
+详细文档请访问：https://autocft.cloudfogtech.ltd/zh
 
 ## ✨ 特性
 - **自动化**：无需手动在Cloudflare Zero Trust中配置隧道，节省时间和精力
@@ -103,16 +103,12 @@ AUTOCFT_CF_TUNNEL_ID=xxx \
 4. 提交前本地构建并自测
 
 ### 架构简述
-- 后端：Golang
-- 前端：预留 PocketBase
+- 后端：Golang + PocketBase
+- 前端：预留
 - 文档：Cloudflare Pages + VitePress
 
 ## 📄 许可证
 MIT License © 2025 CloudFogTech
-
-## 💬 支持
-- GitHub: https://github.com/cloudfogtech/autocft
-- Issue 请附：相关标签、精简日志、版本（脱敏）。
 
 ---
 **免责声明**：当前版本处于早期阶段（0.x），接口与行为可能出现不兼容变更，请在生产使用前充分评估风险。

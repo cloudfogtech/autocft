@@ -8,6 +8,8 @@
 
 ---
 
+Please see more details in：https://autocft.cloudfogtech.ltd/en
+
 ## ✨ Features
 - **Zero manual maintenance**: No more editing Tunnel ingress repeatedly in the dashboard.
 - **Second-level sync**: Runs every 10s by default (configurable via `AUTOCFT_CRON`).
