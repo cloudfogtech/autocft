@@ -22,9 +22,8 @@ func main() {
 		DefaultDataDir: systemConfig.Basedir + "/pb_data",
 	})
 	isGoRun := strings.HasPrefix(os.Args[0], os.TempDir())
-	fmt.Printf("isGoRun:%b", isGoRun)
 	migratecmd.MustRegister(app, app.RootCmd, migratecmd.Config{
-		Automigrate: true,
+		Automigrate: isGoRun,
 	})
 	autoCFT := service.NewAutoCFTService(app, systemConfig, ingressConfig)
 	runCmd := &cobra.Command{

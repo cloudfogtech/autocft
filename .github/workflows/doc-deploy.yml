@@ -1,11 +1,11 @@
-name: Deploy Docs to Cloudflare Pages
+name: Deploy Doc Site
 
 on:
   push:
     branches: [ main ]
     paths:
       - 'docs/**'
-      - '.github/workflows/docs-pages-deploy.yml'
+      - 'doc-deploy.yml'
   workflow_dispatch:
 
 concurrency:
