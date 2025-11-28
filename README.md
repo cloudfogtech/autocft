@@ -1,6 +1,6 @@
 # Auto Cloudflare Tunnel (AutoCFT)
 
-[![CI](https://github.com/cloudfogtech/autocft/actions/workflows/ci.yaml/badge.svg)](https://github.com/cloudfogtech/autocft/actions) [![Go Version](https://img.shields.io/badge/Go-1.25-00ADD8?logo=go)](go.mod) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Release](https://img.shields.io/github/v/release/cloudfogtech/autocft?color=green)](https://github.com/cloudfogtech/autocft/releases) ![Status](https://img.shields.io/badge/status-alpha-orange) [![Docker Pulls](https://img.shields.io/docker/pulls/cloudfogtech/autocft)](https://hub.docker.com/r/cloudfogtech/autocft) [![Docs](https://img.shields.io/badge/Docs-Cloudflare%20Pages-blue)](https://<your-pages-subdomain>.pages.dev)
+[![CI](https://github.com/cloudfogtech/autocft/actions/workflows/ci.yml/badge.svg)](https://github.com/cloudfogtech/autocft/actions) [![Go Version](https://img.shields.io/badge/Go-1.25-00ADD8?logo=go)](go.mod) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Release](https://img.shields.io/github/v/release/cloudfogtech/autocft?color=green)](https://github.com/cloudfogtech/autocft/releases) ![Status](https://img.shields.io/badge/status-alpha-orange) [![Docker Pulls](https://img.shields.io/docker/pulls/cloudfogtech/autocft)](https://hub.docker.com/r/cloudfogtech/autocft) [![Docs](https://img.shields.io/badge/Docs-Cloudflare%20Pages-blue)](https://<your-pages-subdomain>.pages.dev)
 
 > 在 Docker 环境中基于容器标签自动同步并管理 Cloudflare Tunnel Ingress 规则的轻量工具。
 >
