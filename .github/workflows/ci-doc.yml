@@ -7,6 +7,11 @@ on:
     paths:
       - 'docs/**'
       - 'docs-deploy.yml'
+  push:
+    branches: [ main ]
+    paths:
+      - 'docs/**'
+      - 'docs-deploy.yml'
 
 concurrency:
   group: ci-docs-${{ github.ref }}
