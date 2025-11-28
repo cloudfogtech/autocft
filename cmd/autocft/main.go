@@ -4,7 +4,6 @@ import (
 	"autocft/internal/model"
 	"autocft/internal/service"
 	_ "autocft/migrations"
-	"fmt"
 	"log"
 	"os"
 	"strings"
