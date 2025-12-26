@@ -27,11 +27,11 @@ Please see more details in：https://autocft.cloudfogtech.ltd/en
 
 ### 2. docker-compose example
 ```yaml
-version: '3.8'
 services:
   autocft:
     image: cloudfogtech/autocft:latest
     container_name: autocft
+    users: 10001:10001
     environment:
       - AUTOCFT_CF_API_TOKEN=${AUTOCFT_CF_API_TOKEN}
       - AUTOCFT_CF_ACCOUNT_ID=${AUTOCFT_CF_ACCOUNT_ID}

@@ -20,3 +20,6 @@
 
 ## 0.1.1
 - Change default base directory to `/app/data` to avoid docker mount error
+
+## 0.1.2
+- Change docker mounted permission

@@ -35,6 +35,7 @@ services:
     image: cloudfogtech/autocft:latest
     # image: ghcr.io/cloudfogtech/autocft:latest
     container_name: autocft
+    users: 10001:10001
     environment:
       - AUTOCFT_CF_API_TOKEN=${AUTOCFT_CF_API_TOKEN}
       - AUTOCFT_CF_ACCOUNT_ID=${AUTOCFT_CF_ACCOUNT_ID}
