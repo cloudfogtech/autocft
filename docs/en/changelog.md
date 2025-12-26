@@ -13,3 +13,7 @@
 
 ## 0.0.3
 - Core function is usable
+
+## 0.1.0
+- Change default admin account username and password
+- Release first preview version
