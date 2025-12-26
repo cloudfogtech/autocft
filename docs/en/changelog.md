@@ -17,3 +17,6 @@
 ## 0.1.0
 - Change default admin account username and password
 - Release first preview version
+
+## 0.1.1
+- Change default base directory to `/app/data` to avoid docker mount error

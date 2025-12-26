@@ -12,7 +12,7 @@ outline: deep
 | AUTOCFT_CF_API_TOKEN   | 是 | - | Cloudflare API Token（Tunnel 读写）。 |
 | AUTOCFT_CF_ACCOUNT_ID  | 是 | - | Cloudflare Account ID。           |
 | AUTOCFT_CF_TUNNEL_ID   | 是 | - | 目标 Cloudflare Tunnel UUID。       |
-| AUTOCFT_BASEDIR        | 否 | /app/autocft | 工作目录（历史文件 / PocketBase 数据）。      |
+| AUTOCFT_BASEDIR        | 否 | /app/data | 工作目录（历史文件 / PocketBase 数据）。      |
 | AUTOCFT_CRON           | 否 | */10 * * * * * | 同步Cron（含秒），默认10秒触发一次。            |
 | AUTOCFT_ADMIN_EMAIL    | 否 | autocft@cloudfogtech.ltd | 设置 admin账户的邮箱（为PocketBase预留） |
 | AUTOCFT_ADMIN_PASSWORD | 否 | autocft@cloudfogtech#123 | 设置 admin账户的密码（为PocketBase预留） |

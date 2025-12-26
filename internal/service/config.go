@@ -8,7 +8,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-const DefaultBasedir = "/app/autocft"
+const DefaultBasedir = "/app/data"
 const DefaultCron = "*/10 * * * * *"
 const DefaultAdminEmail = "autocft@cloudfogtech.ltd"
 const DefaultAdminPassword = "autocft@cloudfogtech#123"

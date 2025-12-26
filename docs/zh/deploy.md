@@ -49,11 +49,11 @@ services:
       - AUTOCFT_CF_TUNNEL_ID=${AUTOCFT_CF_TUNNEL_ID}
       # 可选
       - AUTOCFT_CRON=*/30 * * * * *    # 默认 */10 * * * * * 每 10 秒
-      - AUTOCFT_BASEDIR=/app/autocft
+      - AUTOCFT_BASEDIR=/app/data
       #- AUTOCFT_ORIGIN_NO_TLS_VERIFY=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - autocft_data:/app/autocft
+      - autocft_data:/app/data
     restart: unless-stopped
 volumes:
   autocft_data: {}

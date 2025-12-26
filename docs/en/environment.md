@@ -11,7 +11,7 @@ All runtime configuration is provided via environment variables. System-level va
 | AUTOCFT_CF_API_TOKEN | Yes      | - | Cloudflare API Token (Tunnel read/write).           |
 | AUTOCFT_CF_ACCOUNT_ID | Yes      | - | Cloudflare Account ID.                              |
 | AUTOCFT_CF_TUNNEL_ID | Yes      | - | Target Cloudflare Tunnel UUID.                      |
-| AUTOCFT_BASEDIR | No       | /app/autocft | Working directory (history file / PocketBase data). |
+| AUTOCFT_BASEDIR | No       | /app/data | Working directory (history file / PocketBase data). |
 | AUTOCFT_CRON | No       | */10 * * * * * | Sync cron (seconds enabled). Default: every 10s.    |
 | AUTOCFT_ADMIN_EMAIL    | No       | autocft@cloudfogtech.ltd | Set admin account email(prepare for PocketBase)     |
 | AUTOCFT_ADMIN_PASSWORD | No       | autocft@cloudfogtech#123 | Set admin account password(prepare for PocketBase)  |

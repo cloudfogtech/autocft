@@ -38,11 +38,11 @@ services:
       - AUTOCFT_CF_TUNNEL_ID=${AUTOCFT_CF_TUNNEL_ID}
       # Optional
       - AUTOCFT_CRON=*/30 * * * * *    # default */10 * * * * * (every 10s)
-      - AUTOCFT_BASEDIR=/app/autocft
+      - AUTOCFT_BASEDIR=/app/data
       #- AUTOCFT_ORIGIN_NO_TLS_VERIFY=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - autocft_data:/app/autocft
+      - autocft_data:/app/data
     # Optional: expose PocketBase internal UI/API port for future Web UI
     ports:
       - 8090:8090
@@ -88,7 +88,7 @@ System-level:
 | AUTOCFT_CF_API_TOKEN | Yes | - | Cloudflare API Token (Tunnel read/write). |
 | AUTOCFT_CF_ACCOUNT_ID | Yes | - | Cloudflare Account ID. |
 | AUTOCFT_CF_TUNNEL_ID | Yes | - | Tunnel UUID. |
-| AUTOCFT_BASEDIR | No | /app/autocft | Working directory (history / PocketBase data). |
+| AUTOCFT_BASEDIR | No | /app/data | Working directory (history / PocketBase data). |
 | AUTOCFT_CRON | No | */10 * * * * * | Sync cron (with seconds) default 10s. |
 
 Global origin fallbacks (used if a container omits the corresponding label):
