@@ -14,8 +14,8 @@ outline: deep
 | AUTOCFT_CF_TUNNEL_ID   | 是 | - | 目标 Cloudflare Tunnel UUID。       |
 | AUTOCFT_BASEDIR        | 否 | /app/autocft | 工作目录（历史文件 / PocketBase 数据）。      |
 | AUTOCFT_CRON           | 否 | */10 * * * * * | 同步Cron（含秒），默认10秒触发一次。            |
-| AUTOCFT_ADMIN_EMAIL    | 否 | admin@example.com | 设置 admin账户的邮箱（为PocketBase预留） |
-| AUTOCFT_ADMIN_PASSWORD | 否 | autocft@admin#123 | 设置 admin账户的密码（为PocketBase预留） |
+| AUTOCFT_ADMIN_EMAIL    | 否 | autocft@cloudfogtech.ltd | 设置 admin账户的邮箱（为PocketBase预留） |
+| AUTOCFT_ADMIN_PASSWORD | 否 | autocft@cloudfogtech#123 | 设置 admin账户的密码（为PocketBase预留） |
 
 ## 默认 Origin 覆盖项
 作为全局回退，当容器未设置相应标签时使用，这部分参数可以不设置，默认值由Cloudflare提供。

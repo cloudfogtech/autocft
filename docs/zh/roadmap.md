@@ -35,5 +35,5 @@ ports:
 ---
 
 > PocketBase 默认管理员账号：
-> - 邮箱：admin@example.com
-> - 密码：autocft@admin#123
+> - 邮箱：autocft@cloudfogtech.ltd
+> - 密码：autocft@cloudfogtech#123

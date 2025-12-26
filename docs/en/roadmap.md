@@ -35,5 +35,5 @@ Visit: `http://<host-ip>:8090`
 ---
 
 > PocketBase default admin credentials:
-> - Email：admin@example.com
-> - Password：autocft@admin#123
+> - Email：autocft@cloudfogtech.ltd
+> - Password：autocft@cloudfogtech#123

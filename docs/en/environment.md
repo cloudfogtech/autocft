@@ -13,8 +13,8 @@ All runtime configuration is provided via environment variables. System-level va
 | AUTOCFT_CF_TUNNEL_ID | Yes      | - | Target Cloudflare Tunnel UUID.                      |
 | AUTOCFT_BASEDIR | No       | /app/autocft | Working directory (history file / PocketBase data). |
 | AUTOCFT_CRON | No       | */10 * * * * * | Sync cron (seconds enabled). Default: every 10s.    |
-| AUTOCFT_ADMIN_EMAIL    | No       | admin@example.com | Set admin account email(prepare for PocketBase)     |
-| AUTOCFT_ADMIN_PASSWORD | No       | autocft@admin#123 | Set admin account password(prepare for PocketBase)  |
+| AUTOCFT_ADMIN_EMAIL    | No       | autocft@cloudfogtech.ltd | Set admin account email(prepare for PocketBase)     |
+| AUTOCFT_ADMIN_PASSWORD | No       | autocft@cloudfogtech#123 | Set admin account password(prepare for PocketBase)  |
 
 
 ## Default Origin Override Variables
