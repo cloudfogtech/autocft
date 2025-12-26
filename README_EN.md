@@ -26,6 +26,14 @@ Please see more details in：https://autocft.cloudfogtech.ltd/en
 | CF_TUNNEL_ID | `cloudflared tunnel list` or Tunnel detail page UUID |
 
 ### 2. docker-compose example
+
+**Important**
+`./autocft_data` directory must set permission to `10001:10001`
+```bash
+mkdir ./autocft_data
+chown -R 10001:10001 ./autocft_data
+```
+
 ```yaml
 services:
   autocft:
@@ -42,13 +50,11 @@ services:
       #- AUTOCFT_ORIGIN_NO_TLS_VERIFY=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - autocft_data:/app/data
+      - ./autocft_data:/app/data
     # Optional: expose PocketBase internal UI/API port for future Web UI
     ports:
       - 8090:8090
     restart: unless-stopped
-volumes:
-  autocft_data: {}
 ```
 `.env` file:
 ```

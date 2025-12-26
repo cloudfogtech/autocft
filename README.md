@@ -29,6 +29,14 @@
 详情见 [Cloudflare 配置指南](https://autocft.cloudfogtech.ltd/zh/cloudflare)。
 
 ### 2. docker-compose 示例
+
+**重要**
+`./autocft_data` 文件夹需要将权限设置为 `10001:10001`
+```bash
+mkdir ./autocft_data
+chown -R 10001:10001 ./autocft_data
+```
+
 ```yaml
 services:
   autocft:
@@ -46,10 +54,8 @@ services:
       #- AUTOCFT_ORIGIN_NO_TLS_VERIFY=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - autocft_data:/app/data
+      - ./autocft_data:/app/data
     restart: unless-stopped
-volumes:
-  autocft_data: {}
 ```
 
 启动：

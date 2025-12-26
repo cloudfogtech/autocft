@@ -30,6 +30,14 @@ Auto Cloudflare Tunnel (AutoCFT) automatically synchronizes Docker container lab
 | CF_TUNNEL_ID | `cloudflared tunnel list` or Tunnel detail page UUID |
 
 ## docker-compose Example
+
+**Important**
+`./autocft_data` directory must set permission to `10001:10001`
+```bash
+mkdir ./autocft_data
+chown -R 10001:10001 ./autocft_data
+```
+
 ```yaml
 services:
   autocft:
@@ -46,10 +54,8 @@ services:
       #- AUTOCFT_ORIGIN_NO_TLS_VERIFY=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - autocft_data:/app/data
+      - ./autocft_data:/app/data
     restart: unless-stopped
-volumes:
-  autocft_data: {}
 ```
 
 `.env` file:

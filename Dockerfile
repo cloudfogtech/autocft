@@ -23,4 +23,4 @@ WORKDIR /app
 COPY --from=builder /out/autocft /app/autocft
 VOLUME ["/app/data"]
 USER appuser
-ENTRYPOINT ["/app/autocft"]
+ENTRYPOINT ["/app/autocft", "serve"]

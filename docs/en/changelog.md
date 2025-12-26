@@ -23,3 +23,7 @@
 
 ## 0.1.2
 - Change docker mounted permission
+
+## 0.1.3
+- Fix startup issue in Dockerfile
+- Add default mount directory permissions
