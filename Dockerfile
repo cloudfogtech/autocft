@@ -17,10 +17,7 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
       GOOS=$TARGETOS GOARCH=$TARGETARCH go build -trimpath -ldflags="-s -w" -o /out/autocft ./cmd/autocft'
 
 FROM --platform=$TARGETPLATFORM alpine:3.20 AS final
-RUN adduser -D -H -u 10001 appuser
-RUN mkdir -p /app/data && chown -R 10001:10001 /app/data && chmod -R 755 /app/data
 WORKDIR /app
 COPY --from=builder /out/autocft /app/autocft
 VOLUME ["/app/data"]
-USER appuser
 ENTRYPOINT ["/app/autocft", "serve"]

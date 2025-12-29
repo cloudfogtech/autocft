@@ -31,3 +31,6 @@
 ## 0.1.4
 - Fix cron job logic
 - Upgrade dependencies
+
+## 0.1.5
+- Remove default user in Dockerfile
