@@ -9,6 +9,7 @@ import (
 	"github.com/cloudflare/cloudflare-go/v6"
 	"github.com/cloudflare/cloudflare-go/v6/option"
 	"github.com/cloudflare/cloudflare-go/v6/packages/pagination"
+	"github.com/cloudflare/cloudflare-go/v6/shared"
 	"github.com/cloudflare/cloudflare-go/v6/zero_trust"
 )
 
@@ -37,7 +38,7 @@ func NewCloudflareClient(logger *slog.Logger, apiToken, accountID, tunnelID stri
 	}
 }
 
-func (c *CloudflareClient) GetTunnelInfo() (*zero_trust.TunnelCloudflaredGetResponse, error) {
+func (c *CloudflareClient) GetTunnelInfo() (*shared.CloudflareTunnel, error) {
 	result, err := c.client.ZeroTrust.Tunnels.Cloudflared.Get(context.TODO(), c.tunnelID, zero_trust.TunnelCloudflaredGetParams{
 		AccountID: cloudflare.F(c.accountID),
 	})

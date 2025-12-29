@@ -39,20 +39,21 @@ func main() {
 	}
 	runCmd.Flags().Bool("dry", false, "run in dry-run mode")
 	app.RootCmd.AddCommand(runCmd)
+	var cronJob *cron.Cron
 	app.OnServe().BindFunc(func(e *core.ServeEvent) error {
-		c := cron.New(cron.WithSeconds())
-		_, err := c.AddFunc(systemConfig.Cron, func() {
+		cronJob = cron.New(cron.WithSeconds())
+		_, err := cronJob.AddFunc(systemConfig.Cron, func() {
 			autoCFT.RunSync()
 		})
 		if err != nil {
 			log.Fatalf("failed to add cron job: %v", err)
 			return err
 		}
-		c.Start()
-		defer c.Stop()
+		cronJob.Start()
 		return e.Next()
 	})
 	if err := app.Start(); err != nil {
 		log.Fatal(err)
 	}
+	cronJob.Stop()
 }

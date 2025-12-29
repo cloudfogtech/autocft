@@ -27,3 +27,7 @@
 ## 0.1.3
 - Fix startup issue in Dockerfile
 - Add default mount directory permissions
+
+## 0.1.4
+- Fix cron job logic
+- Upgrade dependencies
