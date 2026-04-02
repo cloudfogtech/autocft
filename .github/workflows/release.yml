@@ -172,7 +172,7 @@ jobs:
           done
           docker buildx build \
             --platform "${PLATFORMS}" \
-            --build-arg GO_VERSION=1.25 \
+            --build-arg GO_VERSION=1.26 \
             ${TAG_ARGS} \
             --push \
             .
