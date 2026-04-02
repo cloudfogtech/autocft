@@ -3,6 +3,7 @@ package service
 import (
 	"autocft/internal/connector"
 	"autocft/internal/model"
+	"fmt"
 	"log/slog"
 	"os"
 	"sync/atomic"
@@ -22,12 +23,13 @@ type AutoCFTService struct {
 	defaultConfig    *model.IngressConfig
 	systemConfig     *model.SystemConfig
 	// running as am atomic lock：0 ready，1 running
-	running int32
+	running       int32
+	cloudflareDNS *CloudflareDNS
 }
 
 func NewAutoCFTService(app *pocketbase.PocketBase, systemConfig *model.SystemConfig, defaultConfig *model.IngressConfig) *AutoCFTService {
 	logger := app.Logger().WithGroup("autocft")
-	return &AutoCFTService{
+	as := &AutoCFTService{
 		app:              app,
 		logger:           logger,
 		cloudflareClient: connector.NewCloudflareClient(logger, systemConfig.CFAPIToken, systemConfig.CFAccountID, systemConfig.CFTunnelID),
@@ -35,6 +37,8 @@ func NewAutoCFTService(app *pocketbase.PocketBase, systemConfig *model.SystemCon
 		defaultConfig:    defaultConfig,
 		systemConfig:     systemConfig,
 	}
+	as.cloudflareDNS = NewCloudflareDNS(as)
+	return as
 }
 
 func (as *AutoCFTService) RunSync(options ...*model.SyncOptions) bool {
@@ -84,29 +88,37 @@ func (as *AutoCFTService) runSyncWithOptions(options ...*model.SyncOptions) {
 	// 3. Get cloudflare config (Web managed ingress config+ updated ingress config)
 	cloudflareConfig, err := as.getCloudflareConfig()
 	if err != nil {
-		as.logger.Error("Get cloudflare ingress config failed", "error", err)
+		as.logger.Error("Get Cloudflare ingress config failed", "error", err)
 		return
 	}
-	as.logger.Debug("Get cloudflare ingress config", "count", len(cloudflareConfig))
+	as.logger.Debug("Get Cloudflare ingress config", "count", len(cloudflareConfig))
 
 	// 4. Calculate update config
-	updateConfig, count := as.calculateUpdateConfig(cloudflareConfig, historyConfig, containerConfig)
-	cfUpdateConfig := make([]zero_trust.TunnelCloudflaredConfigurationUpdateParamsConfigIngress, 0)
+	updateConfig, deletedConfig, count := as.calculateDiffConfigs(cloudflareConfig, historyConfig, containerConfig)
+	cloudflareUpdateConfig := make([]zero_trust.TunnelCloudflaredConfigurationUpdateParamsConfigIngress, 0)
 	for _, config := range updateConfig {
-		cfUpdateConfig = append(cfUpdateConfig, *configToCFUpdateConfig(as.defaultConfig, config))
+		cloudflareUpdateConfig = append(cloudflareUpdateConfig, *configToCloudflareUpdateConfig(as.defaultConfig, config))
 	}
 	// Fallback ingress config is required for ingress config
-	cfUpdateConfig = append(cfUpdateConfig, connector.FallbackIngress)
+	cloudflareUpdateConfig = append(cloudflareUpdateConfig, connector.FallbackIngress)
 	if len(options) > 0 && options[0].Dry {
 		as.logger.Info("Dry run, Sync skipped", "cost", time.Since(start))
 	} else {
-		_, err = as.cloudflareClient.UpdateConfiguration(cfUpdateConfig)
+		if err = as.cloudflareDNS.Load(); err != nil {
+			as.logger.Error("Load Cloudflare DNS failed", "error", err)
+			return
+		}
+		_, err = as.cloudflareClient.UpdateConfiguration(cloudflareUpdateConfig)
 		if err != nil {
-			as.logger.Error("Update cloudflare config failed", "error", err)
+			as.logger.Error("Update Cloudflare config failed", "error", err)
+			return
+		}
+		if err = as.syncDNSRecords(updateConfig, deletedConfig); err != nil {
+			as.logger.Error("Update Cloudflare dns records failed", "error", err)
 			return
 		}
 	}
-	as.logger.Debug("Finished updating cloudflare config.")
+	as.logger.Debug("Finished updating Cloudflare config and dns records.")
 
 	// 5. Write history config (Only include ingress config managed by container labels)
 	if err := writePrettyJSON(as.systemConfig.Basedir+"/"+HistoryFile, containerConfig); err != nil {
@@ -121,4 +133,18 @@ func (as *AutoCFTService) runSyncWithOptions(options ...*model.SyncOptions) {
 		"updated", count.Updated,
 		"deleted", count.Deleted,
 		"unchanged", count.Unchanged)
+}
+
+func (as *AutoCFTService) syncDNSRecords(updateConfig, deletedConfig []*model.IngressConfig) error {
+	for _, updates := range updateConfig {
+		if err := as.cloudflareDNS.Sync(updates.Hostname); err != nil {
+			return fmt.Errorf("upsert DNS records failed: %w", err)
+		}
+	}
+	for _, deletes := range deletedConfig {
+		if err := as.cloudflareDNS.Delete(deletes.Hostname); err != nil {
+			return fmt.Errorf("delete DNS records failed: %w", err)
+		}
+	}
+	return nil
 }

@@ -18,7 +18,7 @@ func (as *AutoCFTService) getCloudflareConfig() ([]*model.IngressConfig, error) 
 		if ingress.Service == connector.FallbackService && ingress.Hostname == "" {
 			continue
 		}
-		cloudflareConfig = append(cloudflareConfig, cfGetConfigToConfig(&ingress))
+		cloudflareConfig = append(cloudflareConfig, cloudflareGetConfigToConfig(&ingress))
 	}
 	return cloudflareConfig, nil
 }
@@ -88,40 +88,4 @@ func (as *AutoCFTService) calculateUpdateConfig(cloudflareConfig, historyConfig,
 		return updateConfig[i].Hostname < updateConfig[j].Hostname
 	})
 	return updateConfig, calculateCount(webManagedIngressConfig, historyConfig, updateConfig)
-}
-
-func calculateCount(webManagedConfig, oldConfig, newConfig []*model.IngressConfig) model.SyncCount {
-	oldConfigMap := toMapByHost(oldConfig)
-	newConfigMap := toMapByHost(newConfig)
-	for _, config := range webManagedConfig {
-		delete(newConfigMap, config.Hostname)
-	}
-	addedMap := make(map[string]bool)
-	unchangedMap := make(map[string]bool)
-	updatedMap := make(map[string]bool)
-	deletedMap := make(map[string]bool)
-	for oldHost, oldC := range oldConfigMap {
-		if _, ok := newConfigMap[oldHost]; !ok {
-			deletedMap[oldHost] = true
-		} else {
-			newC := newConfigMap[oldHost]
-			if ingressEqual(oldC, newC) {
-				unchangedMap[oldHost] = true
-			} else {
-				updatedMap[oldHost] = true
-			}
-		}
-	}
-	for newHost := range newConfigMap {
-		if _, ok := oldConfigMap[newHost]; !ok {
-			addedMap[newHost] = true
-		}
-	}
-	return model.SyncCount{
-		WebManaged: len(webManagedConfig),
-		Unchanged:  len(unchangedMap),
-		Updated:    len(updatedMap),
-		Added:      len(addedMap),
-		Deleted:    len(deletedMap),
-	}
 }

@@ -35,3 +35,8 @@
 
 ## 0.1.5
 - 移除Dockerfile中默认的user 
+
+## 0.2.0
+- 适配新的Cloudflare API
+- 升级到 Go 1.26 版本
+- 升级依赖
