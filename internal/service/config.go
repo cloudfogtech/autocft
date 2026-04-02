@@ -12,6 +12,7 @@ const DefaultBasedir = "/app/data"
 const DefaultCron = "*/10 * * * * *"
 const DefaultAdminEmail = "autocft@cloudfogtech.ltd"
 const DefaultAdminPassword = "autocft@cloudfogtech#123"
+const AutoCFTManagedDNSComment = "managed by autocft"
 
 func LoadConfigFromEnv() (*model.SystemConfig, *model.IngressConfig) {
 	viper.SetEnvPrefix("AUTOCFT")

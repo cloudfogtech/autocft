@@ -4,8 +4,18 @@ import (
 	"autocft/internal/model"
 	"encoding/json"
 	"os"
+	"sort"
 	"strings"
 )
+
+func sortConfigs(configs []*model.IngressConfig) {
+	sort.Slice(configs, func(i, j int) bool {
+		if configs[i].Hostname == configs[j].Hostname {
+			return configs[i].Path < configs[j].Path
+		}
+		return configs[i].Hostname < configs[j].Hostname
+	})
+}
 
 func verifyIngressConfig(c *model.IngressConfig) []string {
 	errList := make([]string, 0)

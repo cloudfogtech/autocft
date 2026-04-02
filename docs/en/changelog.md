@@ -34,3 +34,8 @@
 
 ## 0.1.5
 - Remove default user in Dockerfile
+
+## 0.2.0
+- Adapt to the new Cloudflare API
+- Upgrade to Go version 1.26
+- Upgrade dependencies

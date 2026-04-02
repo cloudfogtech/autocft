@@ -21,7 +21,7 @@ func containerLabelsToConfig(labels map[string]string) *model.IngressConfig {
 	return ingressConfig
 }
 
-func cfGetConfigToConfig(cfConfig *zero_trust.TunnelCloudflaredConfigurationGetResponseConfigIngress) *model.IngressConfig {
+func cloudflareGetConfigToConfig(cfConfig *zero_trust.TunnelCloudflaredConfigurationGetResponseConfigIngress) *model.IngressConfig {
 	if cfConfig == nil {
 		return nil
 	}
@@ -48,7 +48,7 @@ func cfGetConfigToConfig(cfConfig *zero_trust.TunnelCloudflaredConfigurationGetR
 	}
 }
 
-func configToCFUpdateConfig(defaultIngressConfig *model.IngressConfig, updateIngressConfig *model.IngressConfig) *zero_trust.TunnelCloudflaredConfigurationUpdateParamsConfigIngress {
+func configToCloudflareUpdateConfig(defaultIngressConfig *model.IngressConfig, updateIngressConfig *model.IngressConfig) *zero_trust.TunnelCloudflaredConfigurationUpdateParamsConfigIngress {
 	ingressConfig := mergeIngressConfigs(updateIngressConfig, defaultIngressConfig)
 
 	// 构建 Cloudflare API 参数

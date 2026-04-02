@@ -1,6 +1,6 @@
 # Auto Cloudflare Tunnel (AutoCFT)
 
-[![CI](https://github.com/cloudfogtech/autocft/actions/workflows/ci.yml/badge.svg)](https://github.com/cloudfogtech/autocft/actions) [![Go Version](https://img.shields.io/badge/Go-1.25-00ADD8?logo=go)](go.mod) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Release](https://img.shields.io/github/v/release/cloudfogtech/autocft?color=green)](https://github.com/cloudfogtech/autocft/releases) ![Status](https://img.shields.io/badge/status-alpha-orange) [![Docker Pulls](https://img.shields.io/docker/pulls/cloudfogtech/autocft)](https://hub.docker.com/r/cloudfogtech/autocft) [![Commit Activity](https://img.shields.io/github/commit-activity/m/cloudfogtech/autocft)](https://github.com/cloudfogtech/autocft) [![Docs](https://img.shields.io/badge/Docs-Cloudflare%20Pages-blue)](https://<your-pages-subdomain>.pages.dev)
+[![CI](https://github.com/cloudfogtech/autocft/actions/workflows/ci.yml/badge.svg)](https://github.com/cloudfogtech/autocft/actions) [![Go Version](https://img.shields.io/badge/Go-1.26-00ADD8?logo=go)](go.mod) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Release](https://img.shields.io/github/v/release/cloudfogtech/autocft?color=green)](https://github.com/cloudfogtech/autocft/releases) ![Status](https://img.shields.io/badge/status-alpha-orange) [![Docker Pulls](https://img.shields.io/docker/pulls/cloudfogtech/autocft)](https://hub.docker.com/r/cloudfogtech/autocft) [![Commit Activity](https://img.shields.io/github/commit-activity/m/cloudfogtech/autocft)](https://github.com/cloudfogtech/autocft) [![Docs](https://img.shields.io/badge/Docs-Cloudflare%20Pages-blue)](https://<your-pages-subdomain>.pages.dev)
 
 > Lightweight tool that auto-manages Cloudflare Tunnel ingress rules from Docker container labels.
 >
@@ -21,9 +21,9 @@ Please see more details in：https://autocft.cloudfogtech.ltd/en
 ### 1. Gather Cloudflare values
 | Item | How to Obtain |
 |------|---------------|
-| CF_API_TOKEN | Dashboard -> My Profile -> API Tokens (custom token) |
-| CF_ACCOUNT_ID | Dashboard URL `/accounts/<id>/` or API Tokens page |
-| CF_TUNNEL_ID | `cloudflared tunnel list` or Tunnel detail page UUID |
+| AUTOCFT_CF_API_TOKEN | Dashboard -> My Profile -> API Tokens (custom token) |
+| AUTOCFT_CF_ACCOUNT_ID | Dashboard URL `/accounts/<id>/` or API Tokens page |
+| AUTOCFT_CF_TUNNEL_ID | `cloudflared tunnel list` or Tunnel detail page UUID |
 
 ### 2. docker-compose example
 
