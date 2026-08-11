@@ -4,7 +4,6 @@ import (
 	"autocft/internal/connector"
 	"autocft/internal/model"
 	"fmt"
-	"sort"
 	"strings"
 )
 
@@ -80,12 +79,6 @@ func (as *AutoCFTService) calculateUpdateConfig(cloudflareConfig, historyConfig,
 	for _, v := range updateMap {
 		updateConfig = append(updateConfig, v)
 	}
-	// sort (Hostname, Path)
-	sort.Slice(updateConfig, func(i, j int) bool {
-		if updateConfig[i].Hostname == updateConfig[j].Hostname {
-			return updateConfig[i].Path < updateConfig[j].Path
-		}
-		return updateConfig[i].Hostname < updateConfig[j].Hostname
-	})
+	sortConfigs(updateConfig)
 	return updateConfig, calculateCount(webManagedIngressConfig, historyConfig, updateConfig)
 }
