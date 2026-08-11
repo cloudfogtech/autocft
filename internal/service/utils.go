@@ -8,8 +8,15 @@ import (
 	"strings"
 )
 
+// sortConfigs sorts rules most-specific first so earlier rules never shadow later ones.
+// Wildcard hostnames (*.example.com) match every subdomain, so they must come after all exact hostnames.
 func sortConfigs(configs []*model.IngressConfig) {
 	sort.Slice(configs, func(i, j int) bool {
+		wi := strings.HasPrefix(configs[i].Hostname, "*")
+		wj := strings.HasPrefix(configs[j].Hostname, "*")
+		if wi != wj {
+			return !wi
+		}
 		if configs[i].Hostname == configs[j].Hostname {
 			return configs[i].Path < configs[j].Path
 		}
