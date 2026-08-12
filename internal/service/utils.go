@@ -137,6 +137,7 @@ func originEqual(a, b *model.IngressOriginConfig) bool {
 		a.HTTPHostHeader == b.HTTPHostHeader &&
 		a.KeepAliveConnections == b.KeepAliveConnections &&
 		a.KeepAliveTimeout == b.KeepAliveTimeout &&
+		a.MatchSNItoHost == b.MatchSNItoHost &&
 		a.NoHappyEyeballs == b.NoHappyEyeballs &&
 		a.NoTLSVerify == b.NoTLSVerify &&
 		a.OriginServerName == b.OriginServerName &&

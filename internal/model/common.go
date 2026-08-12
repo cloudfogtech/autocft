@@ -45,6 +45,8 @@ type IngressOriginConfig struct {
 	KeepAliveConnections int64 `json:"keepAliveConnections" tag:"autocft.origin.keep-alive-connections" env:"ORIGIN_KEEP_ALIVE_CONNECTIONS"`
 	// Timeout after which an idle keepalive connection can be discarded.
 	KeepAliveTimeout int64 `json:"keepAliveTimeout" tag:"autocft.origin.keep-alive-timeout" env:"ORIGIN_KEEP_ALIVE_TIME"`
+	// Auto configure the Hostname on the origin server certificate.
+	MatchSNItoHost bool `json:"matchSNItoHost" tag:"autocft.origin.match-sni-to-host" env:"ORIGIN_MATCH_SNI_TO_HOST"`
 	// Disable the “happy eyeballs” algorithm for IPv4/IPv6 fallback if your local
 	// network has misconfigured one of the protocols.
 	NoHappyEyeballs bool `json:"noHappyEyeballs" tag:"autocft.origin.no-happy-eyeballs" env:"ORIGIN_NO_HAPPY_EYEBALLS"`

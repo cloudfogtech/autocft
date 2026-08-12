@@ -22,6 +22,7 @@ outline: deep
 | autocft.origin.http-host-header | string | 覆盖 Host 头。        | ENV |
 | autocft.origin.keep-alive-connections | int | 最大空闲连接。           | ENV |
 | autocft.origin.keep-alive-timeout | int | 空闲超时，单位：s。        | ENV |
+| autocft.origin.match-sni-to-host | bool | 自动用请求 Hostname 作为源站 SNI。 | ENV |
 | autocft.origin.no-happy-eyeballs | bool | 禁用双栈竞速。           | ENV |
 | autocft.origin.no-tls-verify | bool | 跳过 TLS 验证。        | ENV |
 | autocft.origin.origin-server-name | string | 证书主机名。            | ENV |

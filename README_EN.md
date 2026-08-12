@@ -106,6 +106,7 @@ Global origin fallbacks (used if a container omits the corresponding label):
 | AUTOCFT_ORIGIN_HTTP_HEADER | string | Override Host header. |
 | AUTOCFT_ORIGIN_KEEP_ALIVE_CONNECTIONS | int | Max idle keepalive connections. |
 | AUTOCFT_ORIGIN_KEEP_ALIVE_TIME | int(s) | Keepalive idle timeout. |
+| AUTOCFT_ORIGIN_MATCH_SNI_TO_HOST | bool | Auto set origin TLS SNI to the request hostname. |
 | AUTOCFT_ORIGIN_NO_HAPPY_EYEBALLS | bool | Disable Happy Eyeballs. |
 | AUTOCFT_ORIGIN_NO_TLS_VERIFY | bool | Skip TLS verification. |
 | AUTOCFT_ORIGIN_ORIGIN_SERVER_NAME | string | Expected certificate hostname. |
@@ -131,6 +132,7 @@ Optional:
 | autocft.origin.http-host-header | Override Host header. |
 | autocft.origin.keep-alive-connections | Max idle connections. |
 | autocft.origin.keep-alive-timeout | Idle timeout s. |
+| autocft.origin.match-sni-to-host | Auto use request hostname as origin SNI. |
 | autocft.origin.no-happy-eyeballs | Disable dual-stack race. |
 | autocft.origin.no-tls-verify | Skip TLS verification. |
 | autocft.origin.origin-server-name | Certificate hostname. |

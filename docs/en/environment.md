@@ -28,6 +28,7 @@ Used as global fallbacks when a container does not specify the corresponding lab
 | AUTOCFT_ORIGIN_HTTP_HEADER | string | Override Host header. |
 | AUTOCFT_ORIGIN_KEEP_ALIVE_CONNECTIONS | int | Max idle connections. |
 | AUTOCFT_ORIGIN_KEEP_ALIVE_TIME | int(s) | Idle connection timeout. |
+| AUTOCFT_ORIGIN_MATCH_SNI_TO_HOST | bool | Auto set origin TLS SNI to the request hostname. |
 | AUTOCFT_ORIGIN_NO_HAPPY_EYEBALLS | bool | Disable Happy Eyeballs (IPv4/IPv6 race). |
 | AUTOCFT_ORIGIN_NO_TLS_VERIFY | bool | Skip TLS verification. |
 | AUTOCFT_ORIGIN_ORIGIN_SERVER_NAME | string | Expected certificate hostname. |

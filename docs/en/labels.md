@@ -22,6 +22,7 @@ Docker labels starting with `autocft.` control creation of ingress rules.
 | autocft.origin.http-host-header | string | Override Host header. | ENV |
 | autocft.origin.keep-alive-connections | int | Max idle connections. | ENV |
 | autocft.origin.keep-alive-timeout | int | Keepalive idle timeout s. | ENV |
+| autocft.origin.match-sni-to-host | bool | Auto use request hostname as origin SNI. | ENV |
 | autocft.origin.no-happy-eyeballs | bool | Disable dual‑stack race. | ENV |
 | autocft.origin.no-tls-verify | bool | Skip TLS verification. | ENV |
 | autocft.origin.origin-server-name | string | Certificate host name. | ENV |

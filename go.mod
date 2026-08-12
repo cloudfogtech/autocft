@@ -3,7 +3,7 @@ module autocft
 go 1.26
 
 require (
-	github.com/cloudflare/cloudflare-go/v6 v6.8.0
+	github.com/cloudflare/cloudflare-go/v6 v6.10.0
 	github.com/docker/docker v28.5.2+incompatible
 	github.com/pocketbase/pocketbase v0.36.8
 	github.com/robfig/cron/v3 v3.0.1
