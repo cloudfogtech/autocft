@@ -28,6 +28,7 @@ outline: deep
 | AUTOCFT_ORIGIN_HTTP_HEADER | string | 覆盖 Host 头。 |
 | AUTOCFT_ORIGIN_KEEP_ALIVE_CONNECTIONS | int | 最大空闲连接数。 |
 | AUTOCFT_ORIGIN_KEEP_ALIVE_TIME | int(s) | 空闲连接超时。 |
+| AUTOCFT_ORIGIN_MATCH_SNI_TO_HOST | bool | 自动将请求 Hostname 作为源站 TLS SNI。 |
 | AUTOCFT_ORIGIN_NO_HAPPY_EYEBALLS | bool | 禁用 Happy Eyeballs。 |
 | AUTOCFT_ORIGIN_NO_TLS_VERIFY | bool | 跳过 TLS 校验。 |
 | AUTOCFT_ORIGIN_ORIGIN_SERVER_NAME | string | 预期证书主机名。 |
